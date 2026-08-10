@@ -4,17 +4,17 @@ import math
 
 
 class Vector:
-    def __init__(self, x: float, y: float) -> None:
-        self.x = round(x, 2)
-        self.y = round(y, 2)
+    def __init__(self, coor_x: float, coor_y: float) -> None:
+        self.x = round(coor_x, 2)
+        self.y = round(coor_y, 2)
 
-    def __add__(self, other) -> Vector:
+    def __add__(self, other: Vector) -> Vector:
         return Vector(self.x + other.x, self.y + other.y)
 
-    def __sub__(self, other) -> Vector:
+    def __sub__(self, other: Vector) -> Vector:
         return Vector(self.x - other.x, self.y - other.y)
 
-    def __mul__(self, other) -> Vector | float:
+    def __mul__(self, other: Vector | float) -> Vector | float:
         if not isinstance(other, Vector):
             return Vector(self.x * other, self.y * other)
         return (self.x * other.x) + (self.y * other.y)
@@ -25,9 +25,14 @@ class Vector:
             start_point: tuple,
             end_point: tuple,
     ) -> Self:
-        return cls(end_point[0] - start_point[0], end_point[1] - start_point[1])
+        return cls(
+            end_point[0]
+            - start_point[0],
+            end_point[1]
+            - start_point[1]
+        )
 
-    def get_length(self):
+    def get_length(self) -> float:
         result = math.sqrt(self.x ** 2 + self.y ** 2)
         return result
 
@@ -37,7 +42,7 @@ class Vector:
         y_norm = self.y / v_norm
         return Vector(x_norm, y_norm)
 
-    def angle_between(self, other) -> int:
+    def angle_between(self, other: Vector) -> int:
         dot_sum = (self.x * other.x) + (self.y * other.y)
         long_first_vector = math.sqrt(self.x ** 2 + self.y ** 2)
         long_second_vector = math.sqrt(other.x ** 2 + other.y ** 2)
